@@ -13,6 +13,7 @@ PLATFORM_HEIGHT = 222.11 - SERVO_HEIGHT
 SERVO_HORN_LENGTH = 23.5
 BETA = [math.pi / 2, -math.pi / 2, -5 * math.pi / 6, math.pi / 6, -math.pi / 6, 5 * math.pi / 6 ]
 LEG_LENGTH = 195.0
+w0 = [1650, 1650, 1625, 1625, 1650, 1575]
 
 def main():
 
@@ -27,7 +28,7 @@ def main():
 	ax.set_ylabel("y axis")
 
 	t = [0, 0, PLATFORM_HEIGHT]
-	r = np.eye(3)
+	r = calc_r(0, 0, 0)
 
 	b = calc_b()
 	p = calc_p()
@@ -48,16 +49,32 @@ def main():
 	print("Length between a[1] and a[0]: ", np.linalg.norm(a[0] - a[1]))
 	print("Length between b[1] and b[0]: ", np.linalg.norm(b[0] - b[1]))
 	print("Length between p[5] and p[0]: ", np.linalg.norm(p[5] - p[0]))
-	print("PulseWidths:                ", pw)
+	print("PulseWidths:                  ", pw)
 
 
 	draw_vectors(b, [0,0,0], ax, "blue")
-	draw_vectors(p, t, ax, "red")
+	draw_vectors(np.dot(p, r), t, ax, "red")
 	draw_vectors(q, [0,0,0], ax, "c")
 	draw_vectors(a, [0,0,0], ax, "g")
 	draw_vectors(dl, a, ax, "orange")
 
 	plt.show()
+
+def calc_r(phi, psi, theta):
+
+	r = np.zeros((3,3))
+
+	r[0][0] = (math.cos(psi) * math.cos(theta));
+	r[0][1] = ((-math.sin(psi) * math.cos(phi)) + (math.cos(psi) * math.sin(theta) * math.sin(phi)));
+	r[0][2] = ((math.sin(psi) * math.sin(phi)) + (math.cos(psi) * math.sin(theta) * math.cos(phi)));
+	r[1][0] = (math.sin(psi) * math.cos(theta));
+	r[1][1] = ((math.cos(psi) * math.cos(phi)) + (math.sin(psi) * math.sin(theta) * math.sin(phi)));
+	r[1][2] = ((-math.cos(psi) * math.sin(phi) + (math.sin(psi) * math.sin(theta) * math.cos(phi))));
+	r[2][0] = (-math.sin(theta));
+	r[2][1] = (math.cos(theta) * math.sin(phi));
+	r[2][2] = (math.cos(theta) * math.cos(phi));
+
+	return r
 
 def calc_w(angles):
 
@@ -66,10 +83,14 @@ def calc_w(angles):
 	r = 400 / 45
 
 	for index in range(len(angles)):
-		if index%2==0:
-			w.append(round(1500 + (angles[index] - 0) * r, 0))
+
+		if index % 2 ==0:
+
+			w.append(round(w0[index] + (angles[index] - 0) * r, 0))
+
 		else:
-			w.append(round(1500 - (angles[index] - 0) * r, 0))
+
+			w.append(round(w0[index] - (angles[index] - 0) * r, 0))
 
 	return w
 
