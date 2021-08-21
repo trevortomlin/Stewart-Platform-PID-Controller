@@ -26,7 +26,7 @@ def main():
 	ax.set_xlabel("x axis")
 	ax.set_ylabel("y axis")
 
-	t = [25, 0, PLATFORM_HEIGHT]
+	t = [0, 0, PLATFORM_HEIGHT]
 	r = np.eye(3)
 
 	b = calc_b()
@@ -35,12 +35,12 @@ def main():
 	l = calc_l(q, b)
 	a = calc_a(b, [0,0,0,0,0,0])
 
-	dl = q - a
-
 	angles = calc_angle(b, q)
 	a = calc_a(b, angles)
 
 	pw = calc_w(angles)
+
+	dl = q - a
 
 	print("Angle[0]:                     ", angles[0])
 	print("Length of Dl[0]: 			  ", np.linalg.norm(dl[0]))
@@ -48,7 +48,7 @@ def main():
 	print("Length between a[1] and a[0]: ", np.linalg.norm(a[0] - a[1]))
 	print("Length between b[1] and b[0]: ", np.linalg.norm(b[0] - b[1]))
 	print("Length between p[5] and p[0]: ", np.linalg.norm(p[5] - p[0]))
-	print("PulseWidth[0]:                ", pw[0])
+	print("PulseWidths:                ", pw)
 
 
 	draw_vectors(b, [0,0,0], ax, "blue")
@@ -67,9 +67,9 @@ def calc_w(angles):
 
 	for index in range(len(angles)):
 		if index%2==0:
-			w.append(1500 + (angles[index] - 0) * r)
+			w.append(round(1500 + (angles[index] - 0) * r, 0))
 		else:
-			w.append(1500 - (angles[index] - 0) * r)
+			w.append(round(1500 - (angles[index] - 0) * r, 0))
 
 	return w
 
