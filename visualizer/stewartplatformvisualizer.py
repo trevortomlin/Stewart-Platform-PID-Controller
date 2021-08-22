@@ -31,26 +31,16 @@ def main():
 	r = calc_r(0, 0, 0)
 
 	b = calc_b()
-	p = calc_p()
-	q = calc_q(p, t, r)
-	l = calc_l(q, b)
-	a = calc_a(b, [0,0,0,0,0,0])
 
-	angles = calc_angle(b, q)
-	a = calc_a(b, angles)
-
-	pw = calc_w(angles)
-
-	dl = q - a
+	p, q, angles, a, pw, dl = go_to(t, r, b)
 
 	print("Angle[0]:                     ", angles[0])
 	print("Length of Dl[0]: 			  ", np.linalg.norm(dl[0]))
-	print("Length of l[0]: 			  ", np.linalg.norm(l[0]))
+	#print("Length of l[0]: 			  ", np.linalg.norm(l[0]))
 	print("Length between a[1] and a[0]: ", np.linalg.norm(a[0] - a[1]))
 	print("Length between b[1] and b[0]: ", np.linalg.norm(b[0] - b[1]))
 	print("Length between p[5] and p[0]: ", np.linalg.norm(p[5] - p[0]))
 	print("PulseWidths:                  ", pw)
-
 
 	draw_vectors(b, [0,0,0], ax, "blue")
 	draw_vectors(np.dot(p, r), t, ax, "red")
@@ -59,6 +49,21 @@ def main():
 	draw_vectors(dl, a, ax, "orange")
 
 	plt.show()
+
+def go_to(t, r, b):
+
+	p = calc_p()
+	q = calc_q(p, t, r)
+
+	angles = calc_angle(b, q)
+	a = calc_a(b, angles)
+
+	pw = calc_w(angles)
+
+	dl = q - a
+
+	return p, q, angles, a, pw, dl
+
 
 def calc_r(phi, psi, theta):
 
@@ -105,7 +110,7 @@ def calc_angle(b, q):
 		theta = 0
 		n = 0
 
-		while(n < 20):
+		while(n < 10):
 
 			a = calc_a(b, t)
 
