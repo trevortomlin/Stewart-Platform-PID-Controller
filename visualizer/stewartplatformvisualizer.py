@@ -20,9 +20,9 @@ def main():
 	fig = plt.figure()
 	ax = plt.axes(projection ='3d')
 
-	ax.set_ylim(-90, 90)
-	ax.set_xlim(-90, 90)
-	ax.set_zlim(0, 200)
+	ax.set_ylim(-100, 100)
+	ax.set_xlim(-100, 100)
+	ax.set_zlim(0, 250)
 
 	ax.set_xlabel("x axis")
 	ax.set_ylabel("y axis")
@@ -34,13 +34,12 @@ def main():
 
 	p, q, angles, a, pw, dl = go_to(t, r, b)
 
-	print("Angle[0]:                     ", angles[0])
-	print("Length of Dl[0]: 			  ", np.linalg.norm(dl[0]))
-	#print("Length of l[0]: 			  ", np.linalg.norm(l[0]))
-	print("Length between a[1] and a[0]: ", np.linalg.norm(a[0] - a[1]))
-	print("Length between b[1] and b[0]: ", np.linalg.norm(b[0] - b[1]))
-	print("Length between p[5] and p[0]: ", np.linalg.norm(p[5] - p[0]))
-	print("PulseWidths:                  ", pw)
+	print(f"Angles: {str(angles) : >49}")
+	print(f"Lengths of Dl: {str([np.linalg.norm(x) for x in dl]) : >144}")
+	print(f"Length between a[1] and a[0]: {np.linalg.norm(a[0] - a[1]) : >26}")
+	print(f"Length between b[1] and b[0]: {np.linalg.norm(b[0] - b[1]) : >26}", )
+	print(f"Length between p[5] and p[0]: {np.linalg.norm(p[5] - p[0]) : >27}", )
+	print(f"Pulse Widths: {str(pw): >73}")
 
 	draw_vectors(b, [0,0,0], ax, "blue")
 	draw_vectors(np.dot(p, r), t, ax, "red")
