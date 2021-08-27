@@ -154,8 +154,6 @@ void StewartPlatform::calcR(double R[3][3], double psi, double theta, double phi
 
 void StewartPlatform::calcW(double angles[6]) {
 
-  double W[6] = { 0,0,0,0,0,0 };
-
   double r = 400.0 / 45.0;
 
   for (int i = 0; i < 6; i++) {
