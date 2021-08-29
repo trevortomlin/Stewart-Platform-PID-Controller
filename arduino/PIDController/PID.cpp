@@ -1,12 +1,3 @@
-#ifndef pid
-#define pid
-
-#if (ARDUINO >= 100)
-#include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
-
 #include "PID.h"
 
 PID::PID(double p, double i, double d, double t) : P(p), I(i), D(d), T(t) {
