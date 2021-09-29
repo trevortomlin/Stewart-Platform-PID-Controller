@@ -2,17 +2,17 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 
-BASE_ANGLE_OFFSET = 21.689
-PLATFORM_ANGLE_OFFSET = 3.668
+BASE_ANGLE_OFFSET = 21.801
+PLATFORM_ANGLE_OFFSET = 5.161
 BASE_ANGLES = [360 - BASE_ANGLE_OFFSET, BASE_ANGLE_OFFSET, 120 - BASE_ANGLE_OFFSET, 120 + BASE_ANGLE_OFFSET, 240 - BASE_ANGLE_OFFSET, 240 + BASE_ANGLE_OFFSET]
 PLATFORM_ANGLES = [300 + PLATFORM_ANGLE_OFFSET, 60 - PLATFORM_ANGLE_OFFSET, 60 + PLATFORM_ANGLE_OFFSET, 180 - PLATFORM_ANGLE_OFFSET, 180 + PLATFORM_ANGLE_OFFSET, 300 - PLATFORM_ANGLE_OFFSET]
-BASE_RADIUS = math.sqrt(8969)
-PLATFORM_RADIUS = 78.16
+BASE_RADIUS = 94.24
+PLATFORM_RADIUS = 77.815
 SERVO_HEIGHT = 40.0
-PLATFORM_HEIGHT = 222.11 - SERVO_HEIGHT
-SERVO_HORN_LENGTH = 23.5
+PLATFORM_HEIGHT = 228.6 - SERVO_HEIGHT
+SERVO_HORN_LENGTH = 23
 BETA = [math.pi / 2, -math.pi / 2, -5 * math.pi / 6, math.pi / 6, -math.pi / 6, 5 * math.pi / 6 ]
-LEG_LENGTH = 195.0
+LEG_LENGTH = 200.1
 w0 = [1650, 1650, 1625, 1625, 1650, 1575]
 
 def main():
@@ -36,9 +36,9 @@ def main():
 
 	print(f"Angles: {str(angles) : >49}")
 	print(f"Lengths of Dl: {str([np.linalg.norm(x) for x in dl]) : >144}")
-	print(f"Length between a[1] and a[0]: {np.linalg.norm(a[0] - a[1]) : >26}")
-	print(f"Length between b[1] and b[0]: {np.linalg.norm(b[0] - b[1]) : >26}", )
-	print(f"Length between p[5] and p[0]: {np.linalg.norm(p[5] - p[0]) : >27}", )
+	print(f"Length between a[1] and a[0]: {np.linalg.norm(a[0] - a[1]) : >27}")
+	print(f"Length between b[1] and b[0]: {np.linalg.norm(b[0] - b[1]) : >26}")
+	print(f"Length between p[5] and p[0]: {np.linalg.norm(p[5] - p[0]) : >27}")
 	print(f"Pulse Widths: {str(pw): >73}")
 
 	draw_vectors(b, [0,0,0], ax, "blue")
@@ -88,6 +88,8 @@ def calc_w(angles):
 
 	for index in range(len(angles)):
 
+		#print(angles[index], w0[index])
+
 		if index % 2 ==0:
 
 			w.append(round(w0[index] + (angles[index] - 0) * r, 0))
@@ -109,7 +111,7 @@ def calc_angle(b, q):
 		theta = 0
 		n = 0
 
-		while(n < 10):
+		while(n < 20):
 
 			a = calc_a(b, t)
 
@@ -174,7 +176,6 @@ def calc_p():
 	for angle in PLATFORM_ANGLES:
 
 		p = [math.cos(math.radians(angle)) * PLATFORM_RADIUS, math.sin(math.radians(angle)) * PLATFORM_RADIUS, 0]
-
 		ps.append(p)
 
 	return np.array(ps)
@@ -185,7 +186,6 @@ def calc_q(p, t, r):
 	for index in range(len(p)):
 
 		q = t + np.dot(p[index], r)
-
 		qs.append(q)
 
 	return np.array(qs)	
