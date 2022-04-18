@@ -1,4 +1,4 @@
-# Stewart-Platform-PID-Controller (Currently Non-Functioning.)
+# Stewart-Platform-PID-Controller
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)\
 \
@@ -23,13 +23,16 @@ If you are using the Arduino-CLI:
 ```
 
 ## Parts Needed
+* 6x MG996r servos
+* 3D Printer
+* Various M3 Screws
 
 ## Technologies Used
+* C++
+* Fusion360
 
 ## Improvements
-
-## References
+Servos and/or code is not accurate enough and needs to be fixed.
 
 ## License
-
 This project is licensed under the GNU General Public License v3.0 - see the LICENSE file for details.
