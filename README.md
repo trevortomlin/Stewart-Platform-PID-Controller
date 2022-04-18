@@ -26,6 +26,10 @@ If you are using the Arduino-CLI:
 * 6x MG996r servos
 * 3D Printer
 * Various M3 Screws
+* 12x M3 Turnbuckles
+* 6 M3 x 150mm rods
+* 6 Servo Horns
+* PCA9685 Servo Driver
 
 ## Technologies Used
 * C++
