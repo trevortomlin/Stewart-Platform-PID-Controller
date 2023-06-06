@@ -1,5 +1,8 @@
 # Stewart-Platform-PID-Controller
 
+| :exclamation: Please be aware that the code in this repository is not the latest version. :exclamation:<br> I have not pushed the recent updates from my local repository and my laptop which contains the updated code, is currently inoperable. |
+|--------------------------------------------------------------------------------------------------------------------------------------|
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)\
 \
 An Arduino controlled Stewart Platform with a PID Controller.
